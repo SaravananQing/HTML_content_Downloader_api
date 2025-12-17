@@ -5,19 +5,19 @@ class NotWritable(Exception):
     pass
 class UtillsMain:
     def __init__(self):
-        self.__names=os.listdir("inp")
-        self.__ids={}
-        if os.path.exists("inp"):
+        # self.__names=os.listdir("inp")
+        self.__ids={}#{"id":"filename"} to keep track on existance of data
+        if os.path.exists("inp"):#to delete the existing data when server refresh
             for dirpath, dirnames, filenames in os.walk("inp"):
                 for filename in filenames:
                     os.remove(os.path.join(dirpath, filename))
     def Download_content(self,id):
-        print(self.__ids)
-        content=requests.get(id["url"])
+        # print(self.__ids)
+        content=requests.get(id["url"])#id={"id":2,"url":"https://tirupatitirumalainfo.com/gokulashtami/"}
         n=id["url"].split("/")
-        if f"{n[-2]}.txt" not in self.__names and id["id"] not in self.__ids:
+        if id["id"] not in self.__ids:
             # print(n[-1])
-            self.__ids[id["id"]]=f"{n[-2]}"
+            self.__ids[id["id"]]=f"{n[-2]}"#updating the hashtable
             try:
                 with open(f"inp/{n[-2]}.txt",'w') as f:
                     if f.writable():
