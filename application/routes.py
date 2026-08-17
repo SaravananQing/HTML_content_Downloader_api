@@ -16,3 +16,8 @@ def readData():#example: {"id":2}
     data=request.get_json()
     val=obj.Read_content(id=data)
     return val
+@main.route("/get")
+def getdata():
+    return {
+        "message":"hello"
+    }
